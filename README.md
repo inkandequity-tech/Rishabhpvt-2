@@ -12,10 +12,21 @@ Plain HTML, CSS and JavaScript. No build step and no dependencies except Google 
 - `arcade.html`: game hub with best scores saved in the browser
 
 ## Games (`games/`)
-- `case-file.html`: The Mutation Mystery, a detective game about a forged sale deed
-- `clause-arcade.html`: match legal terms to their meaning in 60 seconds
-- `court-day.html`: move between courtrooms to get six matters heard
-- `quiz.html`: ten questions on Indian law and courts
+In court
+- `case-file.html`: Case Files, three detective cases (a forged sale deed, a back-dated will, an impossible cheque)
+- `objection.html`: Objection, My Lord! Object on the right ground while a witness is examined
+- `court-day.html`: Court Day, moving between courtrooms; a new board every game
+- `forum-finder.html`: Forum Finder, sending 24 client problems to the right forum
+
+Paper & procedure
+- `limitation-lock.html`: Limitation Lock, last-day-to-file puzzles under the Limitation Act with random dates and Section 4 Sundays
+- `order-of-proceedings.html`: Order of Proceedings, restoring five shuffled case files
+- `clause-arcade.html`: Clause Arcade, 56 legal terms in 60 seconds
+- `quiz.html`: Bar Quiz, an 82-question bank (`assets/data/quiz-bank.js`) in five papers; rounds never repeat until a paper is used up
+- `shabd-khoj.html`: Shabd Khoj, a legal word search solved from definitions, with a fresh grid each time
+
+Off duty
+- `patang-pench.html`: Patang Pench, a canvas kite-fighting game
 
 ## Shared
 - `assets/style.css`: design tokens and components

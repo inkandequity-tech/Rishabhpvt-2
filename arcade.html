@@ -25,34 +25,84 @@
 <section class="hero short">
   <canvas class="sky" data-variant="rooftops" aria-hidden="true"></canvas>
   <div class="wrap">
-    <div class="eyebrow fade-in" style="--d:.1s;color:var(--teal)">The Arcade</div>
+    <div class="eyebrow fade-in" style="--d:.1s;color:var(--teal)">The Arcade · 10 games</div>
     <h1 style="margin-top:16px"><span data-split>Court is <span class="teal">in play.</span></span></h1>
-    <p class="lede fade-in" style="--d:.9s">Four small games about law and courts in India. Your best scores stay in this browser. All facts in the games are <b>fictional</b>.</p>
+    <p class="lede fade-in" style="--d:.9s">Ten games about law and courts in India, and one for the rooftops. Questions, dates and boards change on every play, and your best scores stay in this browser. All case facts are <b>fictional</b>.</p>
+    <div class="btns fade-in" style="--d:1.1s;margin-top:24px"><a class="btn teal solid magnet" href="#court">In court</a><a class="btn teal magnet" href="#paper">Paper &amp; procedure</a><a class="btn magnet" href="#roof">Off duty</a></div>
   </div>
 </section>
 
-<section class="band">
+<section class="band" id="court">
   <div class="wrap">
+    <div class="head reveal"><h2>In court.</h2><p>Think on your feet: read the file, object at the right moment, be in the right room, send the client to the right door.</p></div>
     <div class="cabinets">
       <a class="cab tilt reveal" href="games/case-file.html">
         <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><rect x="30" y="16" width="90" height="70" rx="4" fill="#f3a83822" stroke="#f3a838"/><path d="M42 34h60M42 46h50M42 58h56" stroke="#f5ead6" stroke-width="2" opacity=".5"/><circle cx="108" cy="62" r="18" fill="none" stroke="#3cc4b2" stroke-width="3"/><path d="M121 75l14 14" stroke="#3cc4b2" stroke-width="5" stroke-linecap="round"/></svg></div>
-        <h3>The Mutation Mystery</h3><p>A land record changed overnight. Read four exhibits, find the forged one, and say why.</p>
-        <div class="meta"><span>Detective · 5 min</span><span class="best" data-best="case">Best: none</span></div>
+        <h3>Case Files</h3><p>Three files: a forged sale deed, a back-dated will, a cheque that could not exist. Find the paper that lies.</p>
+        <div class="meta"><span>Detective · 3 cases</span><span class="best" data-best="case">Best: none</span></div>
       </a>
-      <a class="cab tilt reveal" href="games/clause-arcade.html">
-        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><rect x="20" y="22" width="120" height="30" rx="15" fill="#f3a838"/><text x="80" y="42" text-anchor="middle" font-family="Rozha One,serif" font-size="15" fill="#170d22">res judicata</text><rect x="20" y="62" width="56" height="20" rx="10" fill="none" stroke="#3cc4b2"/><rect x="84" y="62" width="56" height="20" rx="10" fill="#3cc4b2"/></svg></div>
-        <h3>Clause Arcade</h3><p>Sixty seconds. Legal Latin and court terms fly in. Pick the right meaning and build a streak.</p>
-        <div class="meta"><span>Speed · 60 s</span><span class="best" data-best="clause">Best: none</span></div>
+      <a class="cab tilt reveal" href="games/objection.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><rect x="18" y="20" width="124" height="34" rx="8" fill="#f5ead6"/><path d="M28 32h80M28 42h60" stroke="#2a1b14" stroke-width="3" opacity=".5"/><text x="80" y="84" text-anchor="middle" font-family="Rozha One,serif" font-size="22" fill="#f3a838">Objection!</text></svg></div>
+        <h3>Objection, My Lord!</h3><p>A prosecutor examines a witness line by line. Object on the right ground (leading, hearsay, privilege) before the fuse burns out.</p>
+        <div class="meta"><span>Reflex · 12 lines</span><span class="best" data-best="objection">Best: none</span></div>
       </a>
       <a class="cab tilt reveal" href="games/court-day.html">
         <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><g fill="none" stroke="#f3a838"><path d="M14 86V48Q14 30 32 24Q50 30 50 48V86"/><path d="M62 86V48Q62 30 80 24Q98 30 98 48V86"/><path d="M110 86V48Q110 30 128 24Q146 30 146 48V86"/></g><text x="80" y="64" text-anchor="middle" font-family="DM Mono,monospace" font-size="14" fill="#3cc4b2">17</text><circle cx="32" cy="72" r="6" fill="#3cc4b2"/></svg></div>
-        <h3>Court Day</h3><p>Six matters, three courtrooms, one advocate. Be in the right room when your item is called.</p>
-        <div class="meta"><span>Strategy · 3 min</span><span class="best" data-best="court">Best: none</span></div>
+        <h3>Court Day</h3><p>Six matters, three courtrooms, a new board every day. Be in the right room when your item is called.</p>
+        <div class="meta"><span>Strategy · 90 s</span><span class="best" data-best="court">Best: none</span></div>
+      </a>
+      <a class="cab tilt reveal" href="games/forum-finder.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><g fill="#22142f" stroke="#3cc4b2"><rect x="14" y="56" width="36" height="32" rx="6"/><rect x="62" y="56" width="36" height="32" rx="6"/><rect x="110" y="56" width="36" height="32" rx="6"/></g><rect x="52" y="12" width="56" height="30" rx="8" fill="#f3a838"/><path d="M80 42v10" stroke="#f3a838" stroke-width="3"/><path d="M74 48l6 6 6-6" fill="none" stroke="#f3a838" stroke-width="3"/></svg></div>
+        <h3>Forum Finder</h3><p>Clients line up with problems. High Court, civil judge, revenue court, consumer forum, family court or magistrate? Sort them fast.</p>
+        <div class="meta"><span>Sorting · 75 s</span><span class="best" data-best="forum">Best: none</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<svg class="arches-divider" data-n="12" aria-hidden="true"></svg>
+
+<section class="band alt" id="paper" style="border-top:0">
+  <div class="wrap">
+    <div class="head reveal"><h2>Paper &amp; procedure.</h2><p>Count the days, order the file, know the words. The quiet skills that win cases before anyone stands up.</p></div>
+    <div class="cabinets">
+      <a class="cab tilt reveal" href="games/limitation-lock.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><rect x="40" y="18" width="56" height="64" rx="8" fill="#f5ead6"/><rect x="40" y="18" width="56" height="16" rx="8" fill="#f3a838"/><text x="68" y="68" text-anchor="middle" font-family="Rozha One,serif" font-size="28" fill="#2a1b14">90</text><rect x="104" y="46" width="30" height="26" rx="5" fill="#3cc4b2"/><path d="M110 46v-8a9 9 0 0 1 18 0v8" fill="none" stroke="#3cc4b2" stroke-width="4"/></svg></div>
+        <h3>Limitation Lock</h3><p>An event and a date. Pick the last day to file under the Limitation Act, minding Sundays. New dates every round.</p>
+        <div class="meta"><span>Deadlines · 8 rounds</span><span class="best" data-best="limit">Best: none</span></div>
+      </a>
+      <a class="cab tilt reveal" href="games/order-of-proceedings.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><g fill="#22142f" stroke="#f3a838"><rect x="30" y="14" width="100" height="16" rx="5"/><rect x="30" y="36" width="100" height="16" rx="5" stroke="#3cc4b2"/><rect x="30" y="58" width="100" height="16" rx="5"/></g><text x="22" y="27" font-family="DM Mono" font-size="9" fill="#b9a6cc">01</text><text x="22" y="49" font-family="DM Mono" font-size="9" fill="#b9a6cc">02</text><text x="22" y="71" font-family="DM Mono" font-size="9" fill="#b9a6cc">03</text><path d="M140 22v44M136 60l4 6 4-6" stroke="#3cc4b2" stroke-width="2" fill="none"/></svg></div>
+        <h3>Order of Proceedings</h3><p>Five shuffled files: a civil suit, a writ, a cheque case, a Sessions trial, a land sale. Put every step back in order.</p>
+        <div class="meta"><span>Puzzle · 5 levels</span><span class="best" data-best="order">Best: none</span></div>
+      </a>
+      <a class="cab tilt reveal" href="games/clause-arcade.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><rect x="20" y="22" width="120" height="30" rx="15" fill="#f3a838"/><text x="80" y="42" text-anchor="middle" font-family="Rozha One,serif" font-size="15" fill="#170d22">res judicata</text><rect x="20" y="62" width="56" height="20" rx="10" fill="none" stroke="#3cc4b2"/><rect x="84" y="62" width="56" height="20" rx="10" fill="#3cc4b2"/></svg></div>
+        <h3>Clause Arcade</h3><p>Sixty seconds, 56 terms from legal Latin to the khatauni. Pick the meaning, build a streak up to ×5.</p>
+        <div class="meta"><span>Speed · 60 s</span><span class="best" data-best="clause">Best: none</span></div>
       </a>
       <a class="cab tilt reveal" href="games/quiz.html">
         <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><text x="80" y="70" text-anchor="middle" font-family="Rozha One,serif" font-size="64" fill="#f3a838">?</text><circle cx="40" cy="30" r="5" fill="#3cc4b2"/><circle cx="120" cy="74" r="4" fill="#f5ead6"/></svg></div>
-        <h3>Bar Quiz</h3><p>Ten questions on the Constitution, the new criminal laws, civil procedure and the courts of U.P.</p>
-        <div class="meta"><span>Trivia · 10 Qs</span><span class="best" data-best="quiz">Best: none</span></div>
+        <h3>Bar Quiz</h3><p>82 questions in five papers. Each round draws ten you have not seen, with a 50:50 lifeline and a review of what you missed.</p>
+        <div class="meta"><span>Trivia · 82 Qs</span><span class="best" data-best="quiz">Best: none</span></div>
+      </a>
+      <a class="cab tilt reveal" href="games/shabd-khoj.html">
+        <div class="screen"><svg viewBox="0 0 160 100" aria-hidden="true"><g font-family="DM Mono,monospace" font-size="13" fill="#b9a6cc" text-anchor="middle"><text x="40" y="30">W</text><text x="62" y="30">R</text><text x="84" y="30">I</text><text x="106" y="30">T</text><text x="40" y="54">K</text><text x="62" y="54">A</text><text x="84" y="54">B</text><text x="106" y="54">S</text><text x="40" y="78">L</text><text x="62" y="78">I</text><text x="84" y="78">A</text><text x="106" y="78">B</text></g><line x1="36" y1="26" x2="110" y2="26" stroke="#3cc4b2" stroke-opacity=".45" stroke-width="14" stroke-linecap="round"/><line x1="106" y1="74" x2="62" y2="74" stroke="#f3a838" stroke-opacity=".45" stroke-width="14" stroke-linecap="round"/></svg></div>
+        <h3>Shabd Khoj</h3><p>A word hunt where you only get the definitions. Work out the word, then find it hidden in a new grid each time.</p>
+        <div class="meta"><span>Words · 8 a grid</span><span class="best" data-best="shabd">Best: none</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="roof">
+  <div class="wrap">
+    <div class="head reveal"><h2>Off duty.</h2><p>Lucknow after court hours: kites over the old city.</p></div>
+    <div class="cabinets">
+      <a class="cab tilt reveal" href="games/patang-pench.html">
+        <div class="screen" style="background:linear-gradient(#2a1640,#5a2a52)"><svg viewBox="0 0 160 100" aria-hidden="true"><path d="M60 20l14 16-14 18-14-18z" fill="#f3a838"/><path d="M110 30l11 13-11 14-11-14z" fill="#3cc4b2"/><path d="M60 54Q50 80 20 98M110 57Q90 80 60 98" stroke="#f5ead6" stroke-opacity=".6" fill="none"/><circle cx="74" cy="78" r="6" fill="none" stroke="#ff6f7d" stroke-width="2"/></svg></div>
+        <h3>Patang Pench</h3><p>Steer your kite, cross strings with rivals, and pull before they do. Ninety seconds and three kites.</p>
+        <div class="meta"><span>Action · 90 s</span><span class="best" data-best="patang">Best: none</span></div>
       </a>
     </div>
   </div>

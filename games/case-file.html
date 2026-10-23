@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>The Mutation Mystery · Arcade</title>
+<title>Case Files · Arcade</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="A detective game: find the forged document in a fictional land dispute.">
+<meta name="description" content="A detective game: find the false document in three fictional cases.">
 <meta name="theme-color" content="#170d22">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,9 +25,9 @@
 <section class="hero short">
   <canvas class="sky" data-variant="domes" aria-hidden="true"></canvas>
   <div class="wrap">
-    <div class="eyebrow fade-in" style="--d:.1s"><a href="../arcade.html" style="text-decoration:none">← Arcade</a> · Detective game · fictional facts</div>
-    <h1 style="margin-top:16px"><span data-split>The Mutation <span class="glow-text">Mystery</span></span></h1>
-    <p class="lede fade-in" style="--d:.9s">In the village of Bhitauli, plot no. 412 changed hands on paper overnight. <b>Kamla Devi</b> says she never sold it. <b>Sushil Verma</b> has a sale deed. One exhibit is forged. Find it.</p>
+    <div class="eyebrow fade-in" style="--d:.1s"><a href="../arcade.html" style="text-decoration:none">← Arcade</a> · Detective game · three cases · fictional facts</div>
+    <h1 style="margin-top:16px"><span data-split>Case <span class="glow-text">Files</span></span></h1>
+    <p class="lede fade-in" style="--d:.9s" id="intro">Three files are on the desk. In each, one piece of paper is lying. Read the exhibits, <b>mark the line that gives it away</b>, then name the false exhibit, the reason, and the next step.</p>
   </div>
 </section>
 
@@ -37,21 +37,22 @@
       <div class="hud">
         <div class="stats">
           <div class="stat"><small>Score</small><b id="score">900</b></div>
-          <div class="stat"><small>Clues marked</small><b id="clues">0</b></div>
+          <div class="stat"><small>Lines marked</small><b id="clues">0</b></div>
           <div class="stat"><small>Stage</small><b id="stageNo">1 / 3</b></div>
         </div>
-        <span class="tag" id="hint">Open an exhibit. Tap any line that looks wrong to mark it.</span>
+        <div class="btns" id="caseTabs" role="tablist" aria-label="Choose a case"></div>
       </div>
-
+      <div id="brief" class="explain" style="margin:0 0 18px"></div>
       <div id="exhibits" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))"></div>
-
       <div id="accuse" style="margin-top:28px"></div>
     </div>
   </div>
 </section>
 
 <style>
-.ex{background:var(--night);border:1px solid var(--night-3);border-radius:18px;overflow:hidden;min-width:0;transition:border-color .3s,transform .5s var(--ease)}
+.explain{padding:14px 16px;border-radius:14px;background:var(--night);border-left:3px solid var(--marigold);color:var(--mute)}
+.explain b{color:var(--ivory)}
+.ex{background:var(--night);border:1px solid var(--night-3);border-radius:18px;overflow:hidden;min-width:0;transition:border-color .3s}
 .ex>button{all:unset;box-sizing:border-box;display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;cursor:pointer}
 .ex>button:focus-visible{outline:2px solid var(--marigold);outline-offset:-2px}
 .ex .lbl{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;color:var(--marigold);text-transform:uppercase}
@@ -62,13 +63,14 @@
 .ex.open .body{grid-template-rows:1fr}
 .ex .body>div{overflow:hidden}
 .ex.open{border-color:var(--marigold)}
-.doc{margin:0 14px 16px;padding:16px;border-radius:12px;background:#f5ead6;color:#2a1b14;font-family:var(--f-mono);font-size:.82rem;line-height:1.55;position:relative}
-.doc::before{content:"";position:absolute;inset:0;border-radius:12px;background:repeating-linear-gradient(0deg,transparent 0 23px,#2a1b1410 23px 24px);pointer-events:none}
+.doc{margin:0 14px 16px;padding:16px 16px 40px;border-radius:12px;background:#f5ead6;color:#2a1b14;font-family:var(--f-mono);font-size:.82rem;line-height:1.55;position:relative}
 .doc .ln{display:block;width:100%;text-align:left;background:none;border:0;padding:3px 6px;margin:0 -6px;border-radius:6px;font:inherit;color:inherit;cursor:pointer;transition:background .25s}
 .doc .ln:hover{background:#f3a83844}
 .doc .ln.marked{background:#f3a838;color:#170d22;animation:pop .4s var(--spring)}
 .doc .stamp{position:absolute;right:12px;bottom:10px;font-family:var(--f-display);font-size:1rem;color:#9b2c2c;border:2px solid #9b2c2c;padding:2px 8px;border-radius:6px;transform:rotate(-10deg);opacity:.75}
 .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:16px}
+.tab[aria-selected="true"]{background:var(--marigold);color:var(--night)}
+.tab .tick{color:var(--good)}
 </style>
 
 </main>
@@ -83,74 +85,80 @@
 
 <script>
 (function(){
-  const EX=[
-    {id:'A',title:'Khatauni extract',sub:'Revenue record, Gata 412',lines:[
-      'Village: Bhitauli · Tehsil: Sadar (fictional)',
-      'Gata no. 412 · Area 0.506 hectare',
-      'Recorded holder till 02-03-2025: Kamla Devi w/o late Shiv Prasad',
-      'Entry dated 03-03-2025: name of Sushil Verma recorded',
-      'Basis of entry: registered sale deed no. 1187 of 2025'],stamp:'Certified copy'},
-    {id:'B',title:'Sale deed no. 1187',sub:'Relied on by Sushil Verma',lines:[
-      'Seller: Kamla Devi · Buyer: Sushil Verma',
-      'Property: Gata no. 412, area 0.506 hectare',
-      'Date of execution: 14-01-2025',
-      'E-stamp certificate issued on: 20-02-2025',
-      'Witnesses: Ramesh Yadav, Hari Om'],stamp:'Registered',key:3},
-    {id:'C',title:'Sub-registrar index',sub:'Register of documents',lines:[
-      'Document no. 1187 of 2025 · Book I',
-      'Presented for registration: 21-02-2025',
-      'Executant: Kamla Devi (thumb impression)',
-      'Claimant: Sushil Verma',
-      'Registration fee paid: yes'],stamp:'Index II'},
-    {id:'D',title:'Statement of Kamla Devi',sub:'Recorded at our office',lines:[
-      '"I never sold my land to anyone."',
-      '"In January I was in Varanasi for my grandson\'s wedding."',
-      '"I sign my name; I do not use a thumb impression."',
-      '"Sushil Verma is my neighbour. We fought over a boundary."',
-      '"I learned of the change only when I went for a khatauni copy."'],stamp:'Statement'}
+  const CASES=[
+  {id:'mutation',name:'The Mutation',brief:'In the village of <b>Bhitauli</b>, plot no. 412 changed hands on paper overnight. <b>Kamla Devi</b> says she never sold it. <b>Sushil Verma</b> has a registered sale deed.',
+   ex:[
+    {id:'A',title:'Khatauni extract',sub:'Revenue record, Gata 412',stamp:'Certified copy',lines:['Village: Bhitauli · Tehsil: Sadar','Gata no. 412 · Area 0.506 hectare','Recorded holder till 02-03-2025: Kamla Devi','Entry dated 03-03-2025: name of Sushil Verma recorded','Basis of entry: registered sale deed no. 1187 of 2025']},
+    {id:'B',title:'Sale deed no. 1187',sub:'Relied on by Sushil Verma',stamp:'Registered',lines:['Seller: Kamla Devi · Buyer: Sushil Verma','Property: Gata no. 412, area 0.506 hectare','Date of execution: 14-01-2025','E-stamp certificate issued on: 20-02-2025','Witnesses: Ramesh Yadav, Hari Om']},
+    {id:'C',title:'Sub-registrar index',sub:'Register of documents',stamp:'Index II',lines:['Document no. 1187 of 2025 · Book I','Presented for registration: 21-02-2025','Executant: Kamla Devi (thumb impression)','Claimant: Sushil Verma','Registration fee paid: yes']},
+    {id:'D',title:'Statement of Kamla Devi',sub:'Recorded at our office',stamp:'Statement',lines:['"I never sold my land to anyone."','"In January I was in Varanasi for my grandson\'s wedding."','"I sign my name; I never use a thumb impression."','"Sushil is my neighbour. We fought over a boundary."','"I learned of the change only when I went for a khatauni copy."']}],
+   key:'B3',
+   stages:[
+    {q:'Which exhibit is false?',opts:[['A','The khatauni extract'],['B','The sale deed'],['C','The sub-registrar index'],['D','Kamla Devi\'s statement']],ok:'B',why:'The khatauni and the index only record what happened. The deed is where the story breaks.'},
+    {q:'What gives it away?',opts:[['date','It was executed on 14 January on an e-stamp issued only on 20 February'],['area','The area of the plot does not match the khatauni'],['wit','It has only two witnesses'],['alibi','Kamla Devi was in Varanasi in January']],ok:'date',why:'A deed cannot be executed on stamp paper that did not exist yet. The alibi helps, but the stamp date is proof on paper.'},
+    {q:'What is the sensible next step?',opts:[['cc','Get certified copies of the deed and the e-stamp record, and challenge the mutation before the revenue authorities'],['wait','Wait until Sushil Verma tries to sell the land'],['fight','Settle the boundary fight first'],['none','Nothing. A mutation entry cannot be questioned']],ok:'cc',why:'Build the paper trail and challenge the entry. The thumb impression in the index also needs checking, since Kamla Devi signs her name.'}]},
+  {id:'will',name:'The Will',brief:'<b>Late Bhagwati Prasad</b> of Aminabad left a house. His nephew <b>Naresh</b> produces a will leaving it all to Naresh. Bhagwati Prasad\'s daughter <b>Sunita</b> says her father never made a will.',
+   ex:[
+    {id:'A',title:'The will',sub:'Produced by Naresh',stamp:'Original',lines:['I, Bhagwati Prasad, of sound mind, make this my last will.','Dated: 10-03-2021','My house at Aminabad goes to my nephew Naresh.','My gold to my grandson Arjun, son of Sunita.','Attesting witnesses: Mohd. Salim, Vinod Mishra']},
+    {id:'B',title:'Birth certificate',sub:'Municipal record',stamp:'Nagar Nigam',lines:['Name of child: Arjun','Mother: Sunita · Father: Rakesh','Date of birth: 18-09-2023','Place of birth: Lucknow','Registration no. LKO/2023/…']},
+    {id:'C',title:'Death certificate',sub:'Municipal record',stamp:'Nagar Nigam',lines:['Name: Bhagwati Prasad','Age at death: 81','Date of death: 02-02-2025','Place: Lucknow','Informant: Sunita']},
+    {id:'D',title:'Statement of Vinod Mishra',sub:'Named as a witness',stamp:'Statement',lines:['"I knew Bhagwati ji for thirty years."','"I signed some papers at Naresh\'s shop in 2024."','"I did not see Bhagwati ji sign anything that day."','"Mohd. Salim was not there."','"Naresh told me it was a rent agreement."']}],
+   key:'A3',
+   stages:[
+    {q:'Which exhibit is false?',opts:[['A','The will'],['B','The birth certificate'],['C','The death certificate'],['D','Vinod Mishra\'s statement']],ok:'A',why:'The certificates are public records. The will is the paper that cannot be true as dated.'},
+    {q:'What gives it away?',opts:[['arjun','A will dated March 2021 leaves gold to Arjun, who was born only in September 2023'],['age','Bhagwati Prasad was too old to make a will'],['house','The house is in Aminabad'],['two','It names two witnesses instead of three']],ok:'arjun',why:'A 2021 document cannot name a grandson born in 2023. It was written later and back-dated.'},
+    {q:'What is the sensible next step?',opts:[['prove','Insist Naresh prove the will through an attesting witness, and confront Vinod Mishra\'s account in evidence'],['accept','Accept the will, since it is signed'],['police','Ignore the civil case and only complain to the police'],['split','Offer Naresh half the house to avoid court']],ok:'prove',why:'A will must be proved through at least one attesting witness. Here the named witness says he never saw the testator sign.'}]},
+  {id:'cheque',name:'The Cheque',brief:'<b>Ravi Khanna</b> has filed a cheque-bounce complaint against <b>Deepak Jain</b> for ₹4,00,000. Deepak says the loan was repaid in cash and the cheque was stolen from his office.',
+   ex:[
+    {id:'A',title:'Complaint',sub:'Filed by Ravi Khanna',stamp:'Filed',lines:['Loan of ₹4,00,000 given to the accused on 05-05-2025.','On that day the accused handed over cheque no. 004512 as security.','The cheque was presented on 08-07-2025.','It was returned unpaid: "funds insufficient".','Legal notice sent; no payment within 15 days.']},
+    {id:'B',title:'The cheque',sub:'Cheque no. 004512',stamp:'Bank copy',lines:['Pay: Ravi Khanna','Amount: ₹4,00,000 only','Date written: 05-05-2025','Signature: illegible','Drawn on: Hazratganj branch']},
+    {id:'C',title:'Bank\'s cheque-book register',sub:'Hazratganj branch',stamp:'Bank seal',lines:['Account holder: Deepak Jain','Cheque book issued: leaves 004501 to 004550','Date of issue of that book: 20-06-2025','Previous book: leaves 004451 to 004500','Issued on 12-01-2025']},
+    {id:'D',title:'Return memo & notice',sub:'Bank memo and legal notice',stamp:'Dishonoured',lines:['Return memo dated 10-07-2025: funds insufficient','Notice dated 25-07-2025 sent by registered post','Notice received by the accused on 29-07-2025','No reply sent by the accused','Complaint filed on 05-09-2025']}],
+   key:'A1',
+   stages:[
+    {q:'Which exhibit is false?',opts:[['A','Ravi Khanna\'s complaint'],['B','The cheque itself'],['C','The bank\'s register'],['D','The return memo and notice']],ok:'A',why:'The cheque, memo and register are bank documents. The complaint\'s story about when the cheque changed hands is what fails.'},
+    {q:'What gives it away?',opts:[['leaf','He says he got cheque 004512 on 5 May, but that leaf was only issued to Deepak on 20 June'],['amt','The amount is too large for a loan'],['memo','Banks never write "funds insufficient"'],['sig','The signature is illegible']],ok:'leaf',why:'A cheque leaf cannot be handed over six weeks before the bank issued it. The date on the cheque proves nothing by itself, since anyone can write a date.'},
+    {q:'What is the sensible next step for the defence?',opts:[['bank','Summon the bank official with the cheque-book issue register and put it to the complainant in cross-examination'],['admit','Admit the offence and ask for leniency'],['silent','Say nothing and hope the complaint is dismissed'],['notice','Argue the notice was late']],ok:'bank',why:'The register is independent proof that rebuts the complainant\'s version. The notice here was within 30 days of the memo, so that argument would fail.'}]}
   ];
-  const STAGES=[
-    {q:'Which exhibit is forged?',opts:[['A','The khatauni extract'],['B','The sale deed'],['C','The sub-registrar index'],['D','Kamla Devi\'s statement']],ok:'B',why:'The khatauni and the index only record what happened. The deed is where the story breaks.'},
-    {q:'What gives the deed away?',opts:[['date','It was executed on 14 January, but its e-stamp was only issued on 20 February'],['area','The area of the plot does not match the khatauni'],['wit','It has only two witnesses'],['alibi','Kamla Devi was in Varanasi in January']],ok:'date',why:'A deed cannot be executed on a stamp that did not exist yet. The alibi helps, but the stamp date is proof on paper.'},
-    {q:'What is the sensible next step?',opts:[['cc','Get certified copies of the deed and the e-stamp record, and challenge the mutation before the revenue authorities'],['wait','Wait until Sushil Verma tries to sell the land'],['fight','Settle the boundary fight with Sushil Verma first'],['none','Nothing. The mutation entry cannot be questioned']],ok:'cc',why:'Build the paper trail and challenge the entry. The thumb impression in the index also needs verifying, since Kamla Devi signs her name.'}
-  ];
-  let score=900, marked=new Set(), stage=0, keyMarked=false;
   const $=id=>document.getElementById(id), game=$('game');
-  const exWrap=$('exhibits');
-  exWrap.innerHTML=EX.map(e=>`<div class="ex" id="ex${e.id}"><button type="button" aria-expanded="false"><div><div class="lbl">Exhibit ${e.id}</div><h3>${e.title}</h3><div class="mute" style="font-size:.9rem">${e.sub}</div></div><span class="chev" aria-hidden="true">+</span></button><div class="body"><div><div class="doc">${e.lines.map((l,i)=>`<button type="button" class="ln" data-k="${e.id}${i}" aria-pressed="false">${l}</button>`).join('')}<span class="stamp">${e.stamp}</span></div></div></div></div>`).join('');
-  exWrap.querySelectorAll('.ex>button').forEach(b=>b.addEventListener('click',()=>{const ex=b.parentElement;const o=ex.classList.toggle('open');b.setAttribute('aria-expanded',o);}));
-  exWrap.querySelectorAll('.ln').forEach(l=>l.addEventListener('click',e=>{
-    const k=l.dataset.k; const on=!marked.has(k); on?marked.add(k):marked.delete(k);
-    l.classList.toggle('marked',on); l.setAttribute('aria-pressed',on);
-    $('clues').textContent=marked.size;
-    keyMarked=marked.has('B3');
-    if(on){const r=game.getBoundingClientRect();RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'Marked');}
-  }));
-  // open the first exhibit so the page shows the game at rest
-  $('exA').classList.add('open'); $('exA').querySelector('button').setAttribute('aria-expanded','true');
-
+  const solved=new Set(RR.store.get('case:solved',[]));
+  let C, score, marked, stage;
+  function tabs(){
+    $('caseTabs').innerHTML=CASES.map(c=>`<button type="button" role="tab" class="btn small tab" aria-selected="${C&&C.id===c.id}" data-id="${c.id}">${c.name}${solved.has(c.id)?' <span class="tick">✓</span>':''}</button>`).join('');
+    $('caseTabs').querySelectorAll('.tab').forEach(b=>b.onclick=()=>load(CASES.find(c=>c.id===b.dataset.id)));
+  }
+  function load(c){
+    C=c;score=900;marked=new Set();stage=0;game.querySelectorAll('.overlay').forEach(o=>o.remove());
+    $('score').textContent=score;$('clues').textContent=0;$('brief').innerHTML=c.brief;tabs();
+    $('exhibits').innerHTML=c.ex.map(e=>`<div class="ex" id="ex${e.id}"><button type="button" aria-expanded="false"><div><div class="lbl">Exhibit ${e.id}</div><h3>${e.title}</h3><div class="mute" style="font-size:.9rem">${e.sub}</div></div><span class="chev" aria-hidden="true">+</span></button><div class="body"><div><div class="doc">${e.lines.map((l,i)=>`<button type="button" class="ln" data-k="${e.id}${i}" aria-pressed="false">${l}</button>`).join('')}<span class="stamp">${e.stamp}</span></div></div></div></div>`).join('');
+    $('exhibits').querySelectorAll('.ex>button').forEach(b=>b.onclick=()=>{const o=b.parentElement.classList.toggle('open');b.setAttribute('aria-expanded',o);});
+    $('exhibits').querySelectorAll('.ln').forEach(l=>l.onclick=e=>{const k=l.dataset.k,on=!marked.has(k);on?marked.add(k):marked.delete(k);l.classList.toggle('marked',on);l.setAttribute('aria-pressed',on);$('clues').textContent=marked.size;if(on){const r=game.getBoundingClientRect();RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'Marked');}});
+    const first=$('exhibits').querySelector('.ex');first.classList.add('open');first.querySelector('button').setAttribute('aria-expanded','true');
+    renderStage();
+  }
   function renderStage(){
     $('stageNo').textContent=Math.min(stage+1,3)+' / 3';
-    if(stage>=STAGES.length) return finish();
-    const s=STAGES[stage];
+    if(stage>=C.stages.length) return finish();
+    const s=C.stages[stage];
     $('accuse').innerHTML=`<div class="qstep"><div class="eyebrow">Stage ${stage+1}</div><h3 style="font-size:var(--s-2);margin-top:8px">${s.q}</h3><div class="choices">${s.opts.map(([v,t])=>`<button type="button" class="opt" data-v="${v}">${t}</button>`).join('')}</div><p class="fineprint" id="fb" aria-live="polite"></p></div>`;
-    $('accuse').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',e=>{
-      const r=game.getBoundingClientRect();
-      if(b.dataset.v===s.ok){b.setAttribute('aria-pressed','true');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'+ Correct');$('fb').textContent=s.why;
-        $('accuse').querySelectorAll('.opt').forEach(x=>x.disabled=true);setTimeout(()=>{stage++;renderStage();},1700);}
-      else{score=Math.max(100,score-150);$('score').textContent=score;b.disabled=true;b.style.opacity=.4;b.classList.add('shake');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'−150',true);$('fb').textContent='Not that one. Read the exhibits again.';}
-    }));
+    $('accuse').querySelectorAll('.opt').forEach(b=>b.onclick=e=>{const r=game.getBoundingClientRect();
+      if(b.dataset.v===s.ok){b.setAttribute('aria-pressed','true');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'+ Correct');$('fb').textContent=s.why;$('accuse').querySelectorAll('.opt').forEach(x=>x.disabled=true);setTimeout(()=>{stage++;renderStage();},1900);}
+      else{score=Math.max(100,score-150);$('score').textContent=score;b.disabled=true;b.style.opacity=.4;b.classList.add('shake');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'−150',true);$('fb').textContent='Not that one. Read the exhibits again.';}});
   }
   function finish(){
-    const bonus=keyMarked?300:0; score+=bonus; $('score').textContent=score;
-    const best=Math.max(score,RR.store.get('best:case',0)); RR.store.set('best:case',best);
+    const keyMarked=marked.has(C.key), noise=Math.max(0,marked.size-2);
+    const bonus=(keyMarked?300:0)-noise*25; score=Math.max(100,score+bonus);$('score').textContent=score;
+    solved.add(C.id);RR.store.set('case:solved',[...solved]);tabs();
+    const best=Math.max(score,RR.store.get('best:case',0));RR.store.set('best:case',best);
     const stars=score>=1100?3:score>=800?2:1;
-    const ov=document.createElement('div'); ov.className='overlay';
-    ov.innerHTML=`<div class="inner"><div class="eyebrow">Case solved</div><div class="score">${score}</div><p style="font-size:1.6rem;color:var(--marigold)" aria-label="${stars} of 3 stars">${'★'.repeat(stars)}<span style="opacity:.25">${'★'.repeat(3-stars)}</span></p><p class="mute">${keyMarked?'You marked the stamp date before accusing: +300 for good file-reading.':'Tip: mark the decisive line in an exhibit before you accuse for a +300 bonus.'} Best: ${best}.</p><div class="btns" style="justify-content:center"><button class="btn solid" type="button" id="again">Play again</button><a class="btn teal" href="../arcade.html">Back to Arcade</a></div></div>`;
-    game.appendChild(ov); RR.confetti(game);
-    ov.querySelector('#again').onclick=()=>location.reload();
+    const next=CASES.find(c=>!solved.has(c.id));
+    const ov=document.createElement('div');ov.className='overlay';
+    ov.innerHTML=`<div class="inner"><div class="eyebrow">${C.name} · solved</div><div class="score">${score}</div><p style="font-size:1.6rem;color:var(--marigold)" aria-label="${stars} of 3 stars">${'★'.repeat(stars)}<span style="opacity:.25">${'★'.repeat(3-stars)}</span></p><p class="mute">${keyMarked?'You marked the decisive line before accusing: +300.':'Mark the decisive line before you accuse for +300.'}${noise?` Marking too many lines cost ${noise*25}.`:''} Best: ${best}.</p><div class="btns" style="justify-content:center">${next?`<button class="btn solid" type="button" id="nextc">Next file: ${next.name} →</button>`:'<span class="tag live">All three files solved</span>'}<button class="btn" type="button" id="again">Replay this file</button><a class="btn teal" href="../arcade.html">Arcade</a></div></div>`;
+    game.appendChild(ov);RR.confetti(game);
+    ov.querySelector('#again').onclick=()=>load(C);
+    const n=ov.querySelector('#nextc');if(n)n.onclick=()=>{load(next);game.scrollIntoView({behavior:'smooth'});};
   }
-  renderStage();
+  load(CASES.find(c=>!solved.has(c.id))||CASES[0]);
 })();
 </script>
 

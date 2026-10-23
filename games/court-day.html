@@ -92,11 +92,15 @@
 (function(){
   const $=id=>document.getElementById(id), game=$('game');
   const COURTS=[{n:'Court 1',speed:.55},{n:'Court 2',speed:.7},{n:'Court 3',speed:.45}];
-  const START_ITEMS=[[0,6],[0,24],[1,10],[1,33],[2,5],[2,20]];
+  COURTS.forEach(c=>c.speed=Math.max(.38,Math.min(.75,c.speed+(Math.random()-.5)*.16)));
+  function makeItems(){ // two matters per court, spaced apart, different every day
+    const caps=[26,36,22];const out=[];
+    caps.forEach((cap,c)=>{const a=3+Math.floor(Math.random()*8);const b=a+8+Math.floor(Math.random()*(cap-a-8));out.push([c,a],[c,Math.min(b,cap)]);});
+    return out;}
   const TICK_MS=1100, MIN_PER_TICK=5, TOTAL_TICKS=72; // 10:00 to 16:00
   let st;
   function fresh(){return{tick:0,now:[1,1,1],pos:0,walk:0,dest:0,score:0,juniorLeft:1,junior:null,juniorTicks:0,
-    matters:START_ITEMS.map(([c,i],k)=>({id:k,c,item:i,state:'listed',misses:0})),running:false};}
+    matters:makeItems().map(([c,i],k)=>({id:k,c,item:i,state:'listed',misses:0})),running:false};}
   st=fresh();
   function clock(t){const m=600+t*MIN_PER_TICK;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
   function lunch(t){const m=600+t*MIN_PER_TICK;return m>=810&&m<840;}

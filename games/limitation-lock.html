@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Limitation Lock · Arcade</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Pick the last day to file under the Limitation Act.">
+<meta name="theme-color" content="#170d22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Rozha+One&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 38V20Q6 8 20 3Q34 8 34 20V38" fill="none" stroke="#f3a838" stroke-width="2"/><path d="M12 38V23Q12 14 20 10Q28 14 28 23V38" fill="#f3a83822" stroke="#f3a838" stroke-width="1"/><text x="20" y="33" text-anchor="middle" font-family="Rozha One,Georgia,serif" font-size="14" fill="#f5ead6">R</text></svg><span><b>Rishabh Raj</b><small>Advocate · Lucknow</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navlist">Menu</button>
+    <ul id="navlist"><li><a href="../index.html">Home</a></li><li><a href="../practice.html">Practice</a></li><li><a href="../lab.html">Lab</a></li><li><a href="../about.html">About &amp; Contact</a></li><li><a href="../arcade.html" class="arcade-link" aria-current="page">Arcade</a></li></ul>
+  </div>
+</header>
+<main id="main">
+<section class="hero short">
+  <canvas class="sky" data-variant="gate" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow fade-in" style="--d:.1s"><a href="../arcade.html" style="text-decoration:none">← Arcade</a> · Deadline game · 8 rounds</div>
+    <h1 style="margin-top:16px"><span data-split>Limitation <span class="glow-text">Lock</span></span></h1>
+    <p class="lede fade-in" style="--d:.9s">Every case has a clock. You get an event and a date. Pick the <b>last day</b> you can still file. Miss it and the door locks. Dates are new every round.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="game" id="game" style="max-width:920px;margin:0 auto">
+      <div class="hud">
+        <div class="stats">
+          <div class="stat"><small>Round</small><b id="rn">1 / 8</b></div>
+          <div class="stat"><small>Score</small><b id="score">0</b></div>
+          <div class="stat"><small>Locks open</small><b id="ok">0</b></div>
+        </div>
+        <span class="tag">Courts are shut on Sundays in this game</span>
+      </div>
+      <div class="timerbar"><i id="tbar"></i></div>
+      <div id="stage"></div>
+      <details class="rules"><summary>How the counting works</summary>
+        <ul>
+          <li>The day the period starts from is left out (Section 12(1), Limitation Act). A 30-day period from 1 March ends on 31 March.</li>
+          <li>Years and months run to the same date in the later year or month.</li>
+          <li>If the last day falls on a day the court is closed, you can file on the day it reopens (Section 4). Here that means Monday.</li>
+          <li>Simplified for the game: no holidays other than Sundays, and no time spent getting certified copies.</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</section>
+<style>
+.scen{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;padding:22px;border-radius:20px;background:var(--night);border:1px solid var(--night-3)}
+@media (max-width:560px){.scen{grid-template-columns:1fr}}
+.cal{width:120px;border-radius:14px;overflow:hidden;border:1px solid var(--night-4);text-align:center;background:var(--ivory);color:#2a1b14;animation:pop .5s var(--spring)}
+.cal .m{background:var(--marigold);color:var(--night);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 0}
+.cal .d{font-family:var(--f-display);font-size:3rem;line-height:1.1;padding-top:6px}
+.cal .y{font-family:var(--f-mono);font-size:.8rem;padding-bottom:8px}
+.scen h3{font-size:var(--s-1)}
+.scen p{color:var(--mute);margin-top:6px}
+.dates{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:10px;margin-top:18px}
+.dates .opt{text-align:center;font-variant-numeric:tabular-nums}
+.dates .opt b{display:block;font-family:var(--f-display);font-weight:400;font-size:1.4rem}
+.opt.right{border-color:var(--good);background:#5ed39a22}
+.opt.wrong{border-color:var(--bad);background:#ff6f7d22}
+.explain{margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--night);border-left:3px solid var(--marigold);color:var(--mute);animation:fadeUp .4s var(--ease)}
+.explain b{color:var(--ivory)}
+.lock{display:inline-block;font-size:2rem;transition:transform .5s var(--spring)}
+.rules{margin-top:22px;color:var(--mute);font-size:.95rem}
+.rules summary{cursor:pointer;color:var(--marigold);font-weight:600}
+.rules ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
+</style>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Rishabh Raj · Ink &amp; Equity, Lucknow</span>
+    <nav aria-label="Footer"><a href="../index.html">Home</a><a href="../practice.html">Practice</a><a href="../lab.html">Lab</a><a href="../about.html">About &amp; Contact</a><a href="../arcade.html">Arcade</a><a href="https://ieqlaw.com" target="_blank" rel="noopener">ieqlaw.com</a></nav>
+    <p class="disc">This website is not an advertisement or solicitation under the Bar Council of India rules. It shares information at the visitor's request. Nothing here is legal advice, and visiting it does not create an advocate–client relationship. The games use fictional facts.</p>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+
+<script>
+(function(){
+  // [title, story (use {d} for the date), period {d:days|m:months|y:years}, authority, plain explanation]
+  const S=[
+    ['Appeal to the High Court','A civil judge\'s decree went against your client on {d}. The appeal lies to the High Court.',{d:90},'Article 116(a), Limitation Act','90 days from the date of the decree.'],
+    ['First appeal to the District Judge','A decree was passed by a Civil Judge (Junior Division) on {d}. The appeal lies to the District Judge.',{d:30},'Article 116(b), Limitation Act','30 days when the appeal is to any court other than a High Court.'],
+    ['Set aside an ex parte decree','The court passed an ex parte decree on {d}. Your client was duly served but could not appear.',{d:30},'Article 123, Limitation Act','30 days from the date of the decree, where summons was duly served.'],
+    ['Restore a dismissed suit','Your client\'s suit was dismissed for default on {d}.',{d:30},'Article 122, Limitation Act','30 days from the date of dismissal.'],
+    ['Review a judgment','The trial court delivered its judgment on {d}, with an error apparent on the record.',{d:30},'Article 124, Limitation Act','30 days for review by any court other than the Supreme Court.'],
+    ['Specific performance','The date fixed in the agreement to sell for completing the sale was {d}. The seller did not turn up.',{y:3},'Article 54, Limitation Act','3 years from the date fixed for performance.'],
+    ['Recover a loan','Your client lent money to a friend on {d}, payable on demand.',{y:3},'Article 19, Limitation Act','3 years from when the loan was made.'],
+    ['Malicious prosecution','Your client was acquitted on {d} of a false case filed by a rival.',{y:1},'Article 74, Limitation Act','1 year from the date of acquittal.'],
+    ['Defamation','A newspaper published a libellous article about your client on {d}.',{y:1},'Article 75, Limitation Act','1 year from the date of publication.'],
+    ['Possession by title','The defendant\'s possession of your client\'s house became adverse on {d}.',{y:12},'Article 65, Limitation Act','12 years from when possession becomes adverse.'],
+    ['Execute a decree','A money decree became enforceable on {d}. It has not been paid.',{y:12},'Article 136, Limitation Act','12 years from when the decree becomes enforceable.'],
+    ['Cheque bounce notice','The bank returned your client\'s cheque unpaid. Your client was told on {d}.',{d:30},'Section 138(b), Negotiable Instruments Act','The demand notice must go within 30 days of receiving information of dishonour.'],
+    ['Consumer complaint','A defective washing machine was delivered on {d}. The fault showed up the same day.',{y:2},'Section 69, Consumer Protection Act, 2019','2 years from when the cause of action arises.'],
+    ['Declaration of title','Your client first learned on {d} that a forged gift deed was registered over her plot.',{y:3},'Article 58, Limitation Act','3 years from when the right to sue first accrues.']
+  ];
+  const $=id=>document.getElementById(id), game=$('game');
+  const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], W=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+  const D=(y,m,d)=>new Date(Date.UTC(y,m,d));
+  const add=(dt,{d=0,m=0,y=0})=>{const r=new Date(dt);if(y||m){const day=r.getUTCDate();r.setUTCDate(1);r.setUTCFullYear(r.getUTCFullYear()+y);r.setUTCMonth(r.getUTCMonth()+m);const last=new Date(Date.UTC(r.getUTCFullYear(),r.getUTCMonth()+1,0)).getUTCDate();r.setUTCDate(Math.min(day,last));}if(d)r.setUTCDate(r.getUTCDate()+d);return r;};
+  const sundayShift=dt=>dt.getUTCDay()===0?add(dt,{d:1}):dt;
+  const fmt=dt=>`${W[dt.getUTCDay()]} ${dt.getUTCDate()} ${M[dt.getUTCMonth()]} ${dt.getUTCFullYear()}`;
+  const key=dt=>dt.toISOString().slice(0,10);
+  const per=p=>p.d?p.d+' days':p.m?p.m+' months':p.y+(p.y>1?' years':' year');
+  let rounds,i,score,ok,t0,raf,lock;const LIMIT=25;
+  function build(){
+    return shuffle(S).slice(0,8).map(s=>{
+      const start=D(2023+Math.floor(Math.random()*3),Math.floor(Math.random()*12),1+Math.floor(Math.random()*28));
+      if(start.getUTCDay()===0)start.setUTCDate(start.getUTCDate()+1); // courts do not pass decrees on Sundays
+      const raw=add(start,s[2]); const ans=sundayShift(raw);
+      const cands=new Map();cands.set(key(ans),{dt:ans,ok:true});
+      const tries=[add(raw,{d:-1}),add(raw,{d:1}),raw.getUTCDay()===0?raw:null,s[2].d?add(start,{d:s[2].d===30?90:30}):add(start,{y:s[2].y===3?1:3}),s[2].d?add(start,{m:s[2].d/30}):add(raw,{d:-1}),add(start,{d:(s[2].d||365*s[2].y)-1}),s[2].d?add(start,{d:s[2].d+1}):add(start,{y:s[2].y,d:1})];
+      shuffle(tries.filter(Boolean)).forEach(t=>{if(cands.size<4&&!cands.has(key(t)))cands.set(key(t),{dt:t,ok:false});});
+      let n=2;while(cands.size<4){const t=add(ans,{d:n*7});if(!cands.has(key(t)))cands.set(key(t),{dt:t,ok:false});n++;}
+      return {s,start,raw,ans,opts:shuffle([...cands.values()])};
+    });
+  }
+  function start(){rounds=build();i=0;score=0;ok=0;$('score').textContent=0;$('ok').textContent=0;show();}
+  function show(){
+    lock=false;const r=rounds[i],s=r.s;$('rn').textContent=(i+1)+' / '+rounds.length;
+    const st=r.start;
+    $('stage').innerHTML=`<div class="qstep"><div class="scen"><div class="cal" aria-hidden="true"><div class="m">${M[st.getUTCMonth()]}</div><div class="d">${st.getUTCDate()}</div><div class="y">${st.getUTCFullYear()} · ${W[st.getUTCDay()]}</div></div><div><div class="eyebrow">${s[0]}</div><h3 style="margin-top:6px">${s[1].replace('{d}','<span class="hi">'+fmt(st)+'</span>')}</h3><p>What is the last day to file?</p></div></div><div class="dates">${r.opts.map((o,k)=>`<button type="button" class="opt" data-k="${k}"><small>${W[o.dt.getUTCDay()]}</small><b>${o.dt.getUTCDate()} ${M[o.dt.getUTCMonth()]}</b><small>${o.dt.getUTCFullYear()}</small></button>`).join('')}</div><div id="ex"></div></div>`;
+    $('stage').querySelectorAll('.dates .opt').forEach(b=>b.onclick=e=>answer(+b.dataset.k,b,e));
+    t0=performance.now();cancelAnimationFrame(raf);(function tick(){const left=Math.max(0,1-(performance.now()-t0)/1000/LIMIT);$('tbar').style.transform=`scaleX(${left})`;if(left>0&&!lock)raf=requestAnimationFrame(tick);else if(!lock)answer(-1,null,null);})();
+  }
+  function answer(k,b,e){
+    if(lock)return;lock=true;const r=rounds[i],s=r.s,box=game.getBoundingClientRect();
+    const btns=[...$('stage').querySelectorAll('.dates .opt')];btns.forEach(x=>x.disabled=true);btns[r.opts.findIndex(o=>o.ok)].classList.add('right');
+    const good=k>=0&&r.opts[k].ok;const secs=(performance.now()-t0)/1000;
+    const x=e?e.clientX-box.left:box.width/2,y=e?e.clientY-box.top-20:120;
+    if(good){ok++;const pts=100+Math.round(Math.max(0,LIMIT-secs)/LIMIT*100);score+=pts;RR.floater(game,x,y,'🔓 +'+pts);}
+    else{if(b)b.classList.add('wrong','shake');RR.floater(game,x,y,k<0?'Time up':'Locked out',true);}
+    $('score').textContent=score;$('ok').textContent=ok;
+    const shifted=key(r.raw)!==key(r.ans);
+    $('ex').innerHTML=`<p class="explain"><b>${s[3]}:</b> ${s[4]} ${per(s[2])} from ${fmt(r.start)} ends on <b>${fmt(r.raw)}</b>.${shifted?` That is a Sunday, so under Section 4 you can file on <b>${fmt(r.ans)}</b>.`:''}</p><div class="btns" style="margin-top:16px"><button class="btn small solid" type="button" id="nx">${i===rounds.length-1?'See result':'Next file'} →</button></div>`;
+    $('nx').onclick=()=>{i++;i<rounds.length?show():end();};$('nx').focus({preventScroll:true});
+  }
+  function end(){
+    const best=Math.max(score,RR.store.get('best:limit',0));RR.store.set('best:limit',best);
+    $('stage').innerHTML=`<div class="qstep" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;padding-block:20px"><div class="eyebrow">${ok} of ${rounds.length} filed in time</div><div style="font-family:var(--f-display);font-size:var(--s-4);line-height:1;color:var(--marigold);text-shadow:0 0 40px #f3a83877">${score}</div><p class="mute">${ok===rounds.length?'Not a single day lost. Your diary clerk is proud.':ok>=5?'Most doors stayed open. Check the Sunday rule.':'Several matters time-barred. Read the counting rules below and try again.'} Best: ${best}.</p><div class="btns" style="justify-content:center"><button class="btn solid" type="button" id="again">New dates</button><a class="btn teal" href="../arcade.html">Arcade</a></div></div>`;
+    if(ok>=6)RR.confetti(game);$('again').onclick=start;
+  }
+  start();
+})();
+</script>
+
+</body>
+</html>

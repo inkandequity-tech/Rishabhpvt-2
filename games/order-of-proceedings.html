@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order of Proceedings · Arcade</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Put the steps of five kinds of case back in order.">
+<meta name="theme-color" content="#170d22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Rozha+One&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 38V20Q6 8 20 3Q34 8 34 20V38" fill="none" stroke="#f3a838" stroke-width="2"/><path d="M12 38V23Q12 14 20 10Q28 14 28 23V38" fill="#f3a83822" stroke="#f3a838" stroke-width="1"/><text x="20" y="33" text-anchor="middle" font-family="Rozha One,Georgia,serif" font-size="14" fill="#f5ead6">R</text></svg><span><b>Rishabh Raj</b><small>Advocate · Lucknow</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navlist">Menu</button>
+    <ul id="navlist"><li><a href="../index.html">Home</a></li><li><a href="../practice.html">Practice</a></li><li><a href="../lab.html">Lab</a></li><li><a href="../about.html">About &amp; Contact</a></li><li><a href="../arcade.html" class="arcade-link" aria-current="page">Arcade</a></li></ul>
+  </div>
+</header>
+<main id="main">
+<section class="hero short">
+  <canvas class="sky" data-variant="domes" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow fade-in" style="--d:.1s"><a href="../arcade.html" style="text-decoration:none">← Arcade</a> · Puzzle · 5 levels</div>
+    <h1 style="margin-top:16px"><span data-split>Order of <span class="glow-text">Proceedings</span></span></h1>
+    <p class="lede fade-in" style="--d:.9s">The clerk dropped the file and the pages are out of order. Put each proceeding back in sequence, from the first filing to the last order. <b>Tap two cards to swap them</b>, or drag on a computer.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="game" id="game" style="max-width:920px;margin:0 auto">
+      <div class="hud">
+        <div class="stats">
+          <div class="stat"><small>Level</small><b id="lv">1 / 5</b></div>
+          <div class="stat"><small>Score</small><b id="score">0</b></div>
+          <div class="stat"><small>Checks</small><b id="checks">0</b></div>
+        </div>
+        <div class="btns"><button class="btn small" type="button" id="hint">Hint (−50)</button><button class="btn small solid" type="button" id="check">Check order</button></div>
+      </div>
+      <div class="eyebrow" id="title" style="margin-bottom:12px"></div>
+      <ol class="seq" id="seq"></ol>
+      <p class="fineprint" id="msg" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+<style>
+.seq{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:s}
+.seq li{counter-increment:s}
+.tile{width:100%;display:flex;align-items:center;gap:14px;text-align:left;padding:14px 16px;border-radius:14px;border:1.5px solid var(--night-4);background:var(--night);color:var(--ivory);font:inherit;font-weight:500;cursor:grab;transition:border-color .25s,background .25s,transform .3s var(--spring),box-shadow .25s;touch-action:none;user-select:none}
+.tile::before{content:counter(s,decimal-leading-zero);font-family:var(--f-mono);font-size:.78rem;color:var(--mute);width:24px;flex:none}
+.tile:hover{border-color:var(--marigold)}
+.tile.sel{border-color:var(--marigold);background:#f3a8381f;transform:scale(1.02);box-shadow:0 0 0 4px var(--marigold-soft)}
+.tile.ok{border-color:var(--good);background:#5ed39a18}
+.tile.ok::before{color:var(--good)}
+.tile.no{border-color:var(--bad)}
+.tile.drag{opacity:.4}
+.tile.over{border-style:dashed;border-color:var(--teal)}
+.tile.locked{cursor:default}
+.tile small{display:block;color:var(--mute);font-weight:400;font-size:.85rem}
+</style>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Rishabh Raj · Ink &amp; Equity, Lucknow</span>
+    <nav aria-label="Footer"><a href="../index.html">Home</a><a href="../practice.html">Practice</a><a href="../lab.html">Lab</a><a href="../about.html">About &amp; Contact</a><a href="../arcade.html">Arcade</a><a href="https://ieqlaw.com" target="_blank" rel="noopener">ieqlaw.com</a></nav>
+    <p class="disc">This website is not an advertisement or solicitation under the Bar Council of India rules. It shares information at the visitor's request. Nothing here is legal advice, and visiting it does not create an advocate–client relationship. The games use fictional facts.</p>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+
+<script>
+(function(){
+  const L=[
+    ['A civil suit for injunction',[['Plaint filed','The plaintiff states the claim and pays court fee'],['Summons to the defendant','The court calls the defendant to answer'],['Written statement','The defendant replies to each allegation'],['Framing of issues','The court lists the points to be decided'],['Plaintiff\'s evidence','Affidavits, documents and cross-examination'],['Defendant\'s evidence','The defence leads its own witnesses'],['Final arguments','Both sides argue on the evidence'],['Judgment','The court gives its reasons and decision'],['Decree','The formal order drawn up from the judgment'],['Execution','The decree is enforced if not obeyed']]],
+    ['A writ petition in the High Court',[['Petition filed','With affidavit and annexures'],['Registry reports defects','Missing pages, fees or affidavits are flagged'],['Defects cured','The office objections are removed'],['Listed for admission','First hearing before the Bench'],['Notice issued','Respondents are asked to reply'],['Counter affidavit','The State or authority files its reply'],['Rejoinder affidavit','The petitioner answers the counter'],['Final hearing','The matter is argued in full'],['Judgment','The writ is allowed or dismissed']]],
+    ['A cheque-bounce case under Section 138',[['Cheque presented','Within its validity'],['Return memo from the bank','"Funds insufficient"'],['Demand notice sent','Within 30 days of learning of dishonour'],['15 days pass without payment','The cause of action arises'],['Complaint filed','Within one month of the cause of action'],['Cognizance and summons','The Magistrate summons the accused'],['Evidence','Complainant and accused lead evidence'],['Judgment','Conviction or acquittal']]],
+    ['A Sessions trial under the BNSS',[['FIR registered','Information about a cognizable offence'],['Investigation','Police collect evidence and statements'],['Police report filed','The chargesheet goes to the Magistrate'],['Cognizance by the Magistrate','The court takes notice of the offence'],['Committal to the Court of Session','The case is sent to the Sessions Judge'],['Framing of charge','The accused is told what he must answer'],['Prosecution evidence','Witnesses for the State'],['Statement of the accused','The accused explains the evidence against him'],['Defence evidence','If the defence chooses to lead any'],['Final arguments','Both sides argue'],['Judgment','Acquittal, or conviction and then sentence']]],
+    ['Buying farmland and getting it recorded',[['Title search','Check the khatauni and past deeds'],['Stamp duty paid','E-stamp bought in the buyer\'s name'],['Sale deed executed','Seller and buyer sign before witnesses'],['Presented for registration','Before the Sub-Registrar'],['Deed registered','Entered in the register and returned'],['Mutation application','Filed with the Tehsil'],['Mutation order','The buyer\'s name enters the khatauni']]]
+  ];
+  const $=id=>document.getElementById(id), game=$('game');
+  const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;};
+  let lv=0,order=[],score=0,checks=0,sel=null,dragFrom=null,lvChecks=0,locked=new Set();
+  function load(){
+    const [t,steps]=L[lv];$('lv').textContent=(lv+1)+' / '+L.length;$('title').textContent=t;
+    order=steps.map((s,i)=>i);do{order=shuffle(order);}while(order.every((v,i)=>v===i));
+    lvChecks=0;locked=new Set();sel=null;$('msg').textContent='';render();
+  }
+  function render(){
+    const steps=L[lv][1];
+    $('seq').innerHTML=order.map((v,pos)=>`<li><button type="button" class="tile ${locked.has(pos)?'ok locked':''} ${sel===pos?'sel':''}" data-p="${pos}" draggable="${!locked.has(pos)}"><span><span>${steps[v][0]}</span><small>${steps[v][1]}</small></span></button></li>`).join('');
+    $('seq').querySelectorAll('.tile').forEach(t=>{
+      const p=+t.dataset.p;
+      t.onclick=()=>{if(locked.has(p))return;if(sel==null){sel=p;render();}else if(sel===p){sel=null;render();}else{swap(sel,p);sel=null;}};
+      t.ondragstart=e=>{if(locked.has(p)){e.preventDefault();return;}dragFrom=p;t.classList.add('drag');e.dataTransfer.effectAllowed='move';};
+      t.ondragend=()=>t.classList.remove('drag');
+      t.ondragover=e=>{e.preventDefault();t.classList.add('over');};
+      t.ondragleave=()=>t.classList.remove('over');
+      t.ondrop=e=>{e.preventDefault();t.classList.remove('over');if(dragFrom!=null&&!locked.has(p))swap(dragFrom,p);dragFrom=null;};
+    });
+  }
+  function swap(a,b){[order[a],order[b]]=[order[b],order[a]];render();const t=$('seq').querySelectorAll('.tile');[a,b].forEach(i=>t[i]&&t[i].classList.add('pop'));}
+  $('check').onclick=()=>{
+    checks++;lvChecks++;$('checks').textContent=checks;
+    const t=$('seq').querySelectorAll('.tile');let good=0;
+    order.forEach((v,i)=>{if(v===i){good++;locked.add(i);}});
+    render();const t2=$('seq').querySelectorAll('.tile');order.forEach((v,i)=>{if(v!==i)t2[i].classList.add('no','shake');});
+    if(good===order.length){
+      const pts=Math.max(100,500-(lvChecks-1)*80);score+=pts;$('score').textContent=score;
+      const r=game.getBoundingClientRect();RR.floater(game,r.width/2-40,120,'+'+pts);RR.confetti(game);
+      $('msg').textContent=lv<L.length-1?'Correct. Every page is in order.':'All five files restored.';
+      if(lv<L.length-1){setTimeout(()=>{lv++;load();game.scrollIntoView({behavior:'smooth',block:'start'});},1500);}else end();
+    } else $('msg').textContent=`${good} of ${order.length} are in the right place and locked green. Swap the rest.`;
+  };
+  $('hint').onclick=()=>{const i=order.findIndex((v,k)=>v!==k&&!locked.has(k));if(i<0)return;const j=order.indexOf(i);score=Math.max(0,score-50);$('score').textContent=score;swap(i,j);locked.add(i);render();$('msg').textContent='Hint: one card moved into place.';};
+  function end(){
+    const best=Math.max(score,RR.store.get('best:order',0));RR.store.set('best:order',best);
+    const ov=document.createElement('div');ov.className='overlay';
+    ov.innerHTML=`<div class="inner"><div class="eyebrow">Files restored</div><div class="score">${score}</div><p class="mute">${checks} checks across five files. ${checks<=7?'The registry could learn from you.':'Fewer checks means more points. Try again.'} Best: ${best}.</p><div class="btns" style="justify-content:center"><button class="btn solid" type="button" id="again">Shuffle again</button><a class="btn teal" href="../arcade.html">Arcade</a></div></div>`;
+    game.appendChild(ov);ov.querySelector('#again').onclick=()=>{ov.remove();lv=0;score=0;checks=0;$('score').textContent=0;$('checks').textContent=0;load();};
+  }
+  load();
+})();
+</script>
+
+</body>
+</html>
