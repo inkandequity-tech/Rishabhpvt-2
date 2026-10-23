@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Lab · Rishabh Raj</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Legal tech that Rishabh Raj is building: a case manager for Indian courts, AI drafting workflows and ieqlaw.com.">
+<meta name="theme-color" content="#170d22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Rozha+One&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 38V20Q6 8 20 3Q34 8 34 20V38" fill="none" stroke="#f3a838" stroke-width="2"/><path d="M12 38V23Q12 14 20 10Q28 14 28 23V38" fill="#f3a83822" stroke="#f3a838" stroke-width="1"/><text x="20" y="33" text-anchor="middle" font-family="Rozha One,Georgia,serif" font-size="14" fill="#f5ead6">R</text></svg><span><b>Rishabh Raj</b><small>Advocate · Lucknow</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navlist">Menu</button>
+    <ul id="navlist"><li><a href="index.html">Home</a></li><li><a href="practice.html">Practice</a></li><li><a href="lab.html" aria-current="page">Lab</a></li><li><a href="about.html">About &amp; Contact</a></li><li><a href="arcade.html" class="arcade-link">Arcade</a></li></ul>
+  </div>
+</header>
+<main id="main">
+<section class="hero short">
+  <canvas class="sky" data-variant="rooftops" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow fade-in" style="--d:.1s;color:var(--teal)">The Lab</div>
+    <h1 style="margin-top:16px"><span data-split>Law, with a <span class="teal">compiler.</span></span></h1>
+    <p class="lede fade-in" style="--d:.9s">Pleadings, orders and statutes are already precise instructions. I read them as a lawyer and write them as an engineer, so <b>drafting, research and deadlines</b> take less of the day.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Every clause is a function.</h2>
+      <p>Lines from an order sheet, turned into instructions the case manager can act on. They cycle on their own.</p>
+    </div>
+    <div class="translator reveal">
+      <div class="pane"><div class="top"><span>In the order sheet</span><b id="clauseNo">Clause 01</b></div><div class="clause" id="clause">The respondents shall file their counter affidavit within four weeks.</div></div>
+      <div class="swirl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#f3a838" stroke-width="1.5"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg></div>
+      <div class="pane"><div class="top"><span>In the case manager</span><b class="teal">compiled</b></div><div class="code" id="code" aria-live="polite"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>On the workbench.</h2>
+      <p>Tools for how Indian litigators actually work: cause lists, order sheets, Hindi and English side by side, and dates that cannot slip.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:24px;align-items:start" id="bench">
+      <div class="term reveal"><div class="bar"><i></i><i></i><i></i><span>ink — drafting pipeline · sample run</span></div><pre id="term" aria-label="A sample terminal run of an AI drafting pipeline"></pre></div>
+      <div class="grid" style="grid-template-columns:1fr">
+        <div class="card tilt reveal"><span class="tag dev"><span class="pulse"></span>In development</span><h3>A case manager for Indian courts</h3><p>Matters, hearings, order sheets and limitation dates in one place, built around the cause list instead of a generic CRM.</p></div>
+        <div class="card tilt reveal"><span class="tag live"><span class="pulse"></span>Live</span><h3>ieqlaw.com</h3><p>The firm's website, written, coded and optimised in-house for people searching across Lucknow and Uttar Pradesh.</p></div>
+        <div class="card tilt reveal"><span class="tag daily"><span class="pulse"></span>Daily use</span><h3>AI drafting workflows</h3><p>First drafts of appeals, chronologies and replies from the record, checked line by line by an advocate before anything is filed.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="head reveal"><h2>Rules I build by.</h2><p>AI in legal work is only useful if it is safe to rely on.</p></div>
+    <div class="grid">
+      <div class="card reveal"><h3>A human signs</h3><p>Nothing is filed, sent or advised without an advocate reading it in full.</p></div>
+      <div class="card reveal"><h3>Every citation checked</h3><p>Each judgment cited is pulled and read. A model's memory is never the source.</p></div>
+      <div class="card reveal"><h3>Client data stays private</h3><p>Records are handled under the duty of confidentiality, not as training material.</p></div>
+      <div class="card reveal"><h3>Built for Lucknow first</h3><p>Hindi and English, local court practice, and the cause list as the centre of the day.</p></div>
+    </div>
+  </div>
+</section>
+
+<style>@media (max-width:860px){#bench{grid-template-columns:1fr!important}}</style>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Rishabh Raj · Ink &amp; Equity, Lucknow</span>
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="practice.html">Practice</a><a href="lab.html">Lab</a><a href="about.html">About &amp; Contact</a><a href="arcade.html">Arcade</a><a href="https://ieqlaw.com" target="_blank" rel="noopener">ieqlaw.com</a></nav>
+    <p class="disc">This website is not an advertisement or solicitation under the Bar Council of India rules. It shares information at the visitor's request. Nothing here is legal advice, and visiting it does not create an advocate–client relationship. The games use fictional facts.</p>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+
+<script>
+(function(){
+  const reduce=RR.reduce;
+  const pairs=[
+    ['The respondents shall file their counter affidavit within four weeks.','<span class="k">hearing</span>.respondents.<span class="k">file</span>(<span class="s">"counter affidavit"</span>, {\n  within: weeks(4),\n  remind: [<span class="s">"day 21"</span>, <span class="s">"day 27"</span>]\n})'],
+    ['List this matter after six weeks. Interim order to continue till the next date.','<span class="k">cause_list</span>.schedule(matter, after(weeks(6)))\ninterim.<span class="k">extend</span>({ until: matter.nextDate })'],
+    ['Petitioner may file a rejoinder affidavit within two weeks thereafter.','<span class="k">after</span>(<span class="s">"counter affidavit"</span>, () =&gt;\n  petitioner.<span class="k">file</span>(<span class="s">"rejoinder"</span>, { within: weeks(2) }))'],
+    ['Certified copy of the order be supplied to the petitioner on payment of usual charges.','<span class="k">registry</span>.request(<span class="s">"certified copy"</span>, {\n  for: petitioner, fee: <span class="s">"usual"</span>\n}).<span class="k">track</span>()']
+  ];
+  const clause=document.getElementById('clause'),code=document.getElementById('code'),no=document.getElementById('clauseNo');let p=0;
+  function typeHTML(html,el,done){const parts=html.match(/<[^>]+>|&[a-z]+;|[^<&]/g);let n=0;(function step(){if(n>parts.length){el.innerHTML=html;done&&done();return;}el.innerHTML=parts.slice(0,n).join('')+'<span class="caret"></span>';n++;const last=parts[n-1]||'';setTimeout(step,last[0]==='<'?0:26);})();}
+  function cycle(){const [c,k]=pairs[p];clause.animate([{opacity:0,filter:'blur(6px)',transform:'translateY(8px)'},{opacity:1,filter:'blur(0)',transform:'none'}],{duration:700,easing:'cubic-bezier(.2,.8,.2,1)'});clause.textContent=c;no.textContent='Clause 0'+(p+1);typeHTML(k,code,()=>setTimeout(()=>{p=(p+1)%pairs.length;cycle();},2600));}
+  if(reduce) code.innerHTML=pairs[0][1]; else cycle();
+
+  const lines=[['p','$ ink draft --matter "appeal" --from record/'],['','  reading the record…'],['','  extracting dates, parties and orders'],['ok','  ✓ chronology drafted'],['ok','  ✓ grounds drafted, weak ones flagged'],['t','  checking every citation against the reported judgment'],['ok','  ✓ citations verified'],['p','$ ink review --by advocate'],['','  waiting for a human. nothing files without one.']];
+  const term=document.getElementById('term');let li=0,ci=0,out='';
+  function tick(){if(li>=lines.length){setTimeout(()=>{li=0;ci=0;out='';tick();},4200);return;}const [cls,txt]=lines[li];if(ci<=txt.length){const cur=txt.slice(0,ci);term.innerHTML=out+(cls?`<span class="${cls}">${cur}</span>`:cur)+'<span class="caret"></span>';ci+=cls==='p'?1:3;setTimeout(tick,cls==='p'?42:22);}else{out+=(cls?`<span class="${cls}">${txt}</span>`:txt)+'\n';li++;ci=0;setTimeout(tick,320);}}
+  if(reduce) term.innerHTML=lines.map(([c,t])=>c?`<span class="${c}">${t}</span>`:t).join('\n');
+  else new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){tick();o.disconnect();}}).observe(term);
+})();
+</script>
+
+</body>
+</html>

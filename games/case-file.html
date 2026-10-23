@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Mutation Mystery · Arcade</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A detective game: find the forged document in a fictional land dispute.">
+<meta name="theme-color" content="#170d22">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Rozha+One&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M6 38V20Q6 8 20 3Q34 8 34 20V38" fill="none" stroke="#f3a838" stroke-width="2"/><path d="M12 38V23Q12 14 20 10Q28 14 28 23V38" fill="#f3a83822" stroke="#f3a838" stroke-width="1"/><text x="20" y="33" text-anchor="middle" font-family="Rozha One,Georgia,serif" font-size="14" fill="#f5ead6">R</text></svg><span><b>Rishabh Raj</b><small>Advocate · Lucknow</small></span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="navlist">Menu</button>
+    <ul id="navlist"><li><a href="../index.html">Home</a></li><li><a href="../practice.html">Practice</a></li><li><a href="../lab.html">Lab</a></li><li><a href="../about.html">About &amp; Contact</a></li><li><a href="../arcade.html" class="arcade-link" aria-current="page">Arcade</a></li></ul>
+  </div>
+</header>
+<main id="main">
+<section class="hero short">
+  <canvas class="sky" data-variant="domes" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow fade-in" style="--d:.1s"><a href="../arcade.html" style="text-decoration:none">← Arcade</a> · Detective game · fictional facts</div>
+    <h1 style="margin-top:16px"><span data-split>The Mutation <span class="glow-text">Mystery</span></span></h1>
+    <p class="lede fade-in" style="--d:.9s">In the village of Bhitauli, plot no. 412 changed hands on paper overnight. <b>Kamla Devi</b> says she never sold it. <b>Sushil Verma</b> has a sale deed. One exhibit is forged. Find it.</p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="game" id="game">
+      <div class="hud">
+        <div class="stats">
+          <div class="stat"><small>Score</small><b id="score">900</b></div>
+          <div class="stat"><small>Clues marked</small><b id="clues">0</b></div>
+          <div class="stat"><small>Stage</small><b id="stageNo">1 / 3</b></div>
+        </div>
+        <span class="tag" id="hint">Open an exhibit. Tap any line that looks wrong to mark it.</span>
+      </div>
+
+      <div id="exhibits" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))"></div>
+
+      <div id="accuse" style="margin-top:28px"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+.ex{background:var(--night);border:1px solid var(--night-3);border-radius:18px;overflow:hidden;min-width:0;transition:border-color .3s,transform .5s var(--ease)}
+.ex>button{all:unset;box-sizing:border-box;display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;cursor:pointer}
+.ex>button:focus-visible{outline:2px solid var(--marigold);outline-offset:-2px}
+.ex .lbl{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.14em;color:var(--marigold);text-transform:uppercase}
+.ex h3{font-size:1.25rem;margin-top:4px}
+.ex .chev{transition:transform .4s var(--ease);color:var(--marigold);font-size:1.4rem}
+.ex.open .chev{transform:rotate(45deg)}
+.ex .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.ex.open .body{grid-template-rows:1fr}
+.ex .body>div{overflow:hidden}
+.ex.open{border-color:var(--marigold)}
+.doc{margin:0 14px 16px;padding:16px;border-radius:12px;background:#f5ead6;color:#2a1b14;font-family:var(--f-mono);font-size:.82rem;line-height:1.55;position:relative}
+.doc::before{content:"";position:absolute;inset:0;border-radius:12px;background:repeating-linear-gradient(0deg,transparent 0 23px,#2a1b1410 23px 24px);pointer-events:none}
+.doc .ln{display:block;width:100%;text-align:left;background:none;border:0;padding:3px 6px;margin:0 -6px;border-radius:6px;font:inherit;color:inherit;cursor:pointer;transition:background .25s}
+.doc .ln:hover{background:#f3a83844}
+.doc .ln.marked{background:#f3a838;color:#170d22;animation:pop .4s var(--spring)}
+.doc .stamp{position:absolute;right:12px;bottom:10px;font-family:var(--f-display);font-size:1rem;color:#9b2c2c;border:2px solid #9b2c2c;padding:2px 8px;border-radius:6px;transform:rotate(-10deg);opacity:.75}
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:16px}
+</style>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Rishabh Raj · Ink &amp; Equity, Lucknow</span>
+    <nav aria-label="Footer"><a href="../index.html">Home</a><a href="../practice.html">Practice</a><a href="../lab.html">Lab</a><a href="../about.html">About &amp; Contact</a><a href="../arcade.html">Arcade</a><a href="https://ieqlaw.com" target="_blank" rel="noopener">ieqlaw.com</a></nav>
+    <p class="disc">This website is not an advertisement or solicitation under the Bar Council of India rules. It shares information at the visitor's request. Nothing here is legal advice, and visiting it does not create an advocate–client relationship. The games use fictional facts.</p>
+  </div>
+</footer>
+<script src="../assets/site.js"></script>
+
+<script>
+(function(){
+  const EX=[
+    {id:'A',title:'Khatauni extract',sub:'Revenue record, Gata 412',lines:[
+      'Village: Bhitauli · Tehsil: Sadar (fictional)',
+      'Gata no. 412 · Area 0.506 hectare',
+      'Recorded holder till 02-03-2025: Kamla Devi w/o late Shiv Prasad',
+      'Entry dated 03-03-2025: name of Sushil Verma recorded',
+      'Basis of entry: registered sale deed no. 1187 of 2025'],stamp:'Certified copy'},
+    {id:'B',title:'Sale deed no. 1187',sub:'Relied on by Sushil Verma',lines:[
+      'Seller: Kamla Devi · Buyer: Sushil Verma',
+      'Property: Gata no. 412, area 0.506 hectare',
+      'Date of execution: 14-01-2025',
+      'E-stamp certificate issued on: 20-02-2025',
+      'Witnesses: Ramesh Yadav, Hari Om'],stamp:'Registered',key:3},
+    {id:'C',title:'Sub-registrar index',sub:'Register of documents',lines:[
+      'Document no. 1187 of 2025 · Book I',
+      'Presented for registration: 21-02-2025',
+      'Executant: Kamla Devi (thumb impression)',
+      'Claimant: Sushil Verma',
+      'Registration fee paid: yes'],stamp:'Index II'},
+    {id:'D',title:'Statement of Kamla Devi',sub:'Recorded at our office',lines:[
+      '"I never sold my land to anyone."',
+      '"In January I was in Varanasi for my grandson\'s wedding."',
+      '"I sign my name; I do not use a thumb impression."',
+      '"Sushil Verma is my neighbour. We fought over a boundary."',
+      '"I learned of the change only when I went for a khatauni copy."'],stamp:'Statement'}
+  ];
+  const STAGES=[
+    {q:'Which exhibit is forged?',opts:[['A','The khatauni extract'],['B','The sale deed'],['C','The sub-registrar index'],['D','Kamla Devi\'s statement']],ok:'B',why:'The khatauni and the index only record what happened. The deed is where the story breaks.'},
+    {q:'What gives the deed away?',opts:[['date','It was executed on 14 January, but its e-stamp was only issued on 20 February'],['area','The area of the plot does not match the khatauni'],['wit','It has only two witnesses'],['alibi','Kamla Devi was in Varanasi in January']],ok:'date',why:'A deed cannot be executed on a stamp that did not exist yet. The alibi helps, but the stamp date is proof on paper.'},
+    {q:'What is the sensible next step?',opts:[['cc','Get certified copies of the deed and the e-stamp record, and challenge the mutation before the revenue authorities'],['wait','Wait until Sushil Verma tries to sell the land'],['fight','Settle the boundary fight with Sushil Verma first'],['none','Nothing. The mutation entry cannot be questioned']],ok:'cc',why:'Build the paper trail and challenge the entry. The thumb impression in the index also needs verifying, since Kamla Devi signs her name.'}
+  ];
+  let score=900, marked=new Set(), stage=0, keyMarked=false;
+  const $=id=>document.getElementById(id), game=$('game');
+  const exWrap=$('exhibits');
+  exWrap.innerHTML=EX.map(e=>`<div class="ex" id="ex${e.id}"><button type="button" aria-expanded="false"><div><div class="lbl">Exhibit ${e.id}</div><h3>${e.title}</h3><div class="mute" style="font-size:.9rem">${e.sub}</div></div><span class="chev" aria-hidden="true">+</span></button><div class="body"><div><div class="doc">${e.lines.map((l,i)=>`<button type="button" class="ln" data-k="${e.id}${i}" aria-pressed="false">${l}</button>`).join('')}<span class="stamp">${e.stamp}</span></div></div></div></div>`).join('');
+  exWrap.querySelectorAll('.ex>button').forEach(b=>b.addEventListener('click',()=>{const ex=b.parentElement;const o=ex.classList.toggle('open');b.setAttribute('aria-expanded',o);}));
+  exWrap.querySelectorAll('.ln').forEach(l=>l.addEventListener('click',e=>{
+    const k=l.dataset.k; const on=!marked.has(k); on?marked.add(k):marked.delete(k);
+    l.classList.toggle('marked',on); l.setAttribute('aria-pressed',on);
+    $('clues').textContent=marked.size;
+    keyMarked=marked.has('B3');
+    if(on){const r=game.getBoundingClientRect();RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'Marked');}
+  }));
+  // open the first exhibit so the page shows the game at rest
+  $('exA').classList.add('open'); $('exA').querySelector('button').setAttribute('aria-expanded','true');
+
+  function renderStage(){
+    $('stageNo').textContent=Math.min(stage+1,3)+' / 3';
+    if(stage>=STAGES.length) return finish();
+    const s=STAGES[stage];
+    $('accuse').innerHTML=`<div class="qstep"><div class="eyebrow">Stage ${stage+1}</div><h3 style="font-size:var(--s-2);margin-top:8px">${s.q}</h3><div class="choices">${s.opts.map(([v,t])=>`<button type="button" class="opt" data-v="${v}">${t}</button>`).join('')}</div><p class="fineprint" id="fb" aria-live="polite"></p></div>`;
+    $('accuse').querySelectorAll('.opt').forEach(b=>b.addEventListener('click',e=>{
+      const r=game.getBoundingClientRect();
+      if(b.dataset.v===s.ok){b.setAttribute('aria-pressed','true');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'+ Correct');$('fb').textContent=s.why;
+        $('accuse').querySelectorAll('.opt').forEach(x=>x.disabled=true);setTimeout(()=>{stage++;renderStage();},1700);}
+      else{score=Math.max(100,score-150);$('score').textContent=score;b.disabled=true;b.style.opacity=.4;b.classList.add('shake');RR.floater(game,e.clientX-r.left,e.clientY-r.top-10,'−150',true);$('fb').textContent='Not that one. Read the exhibits again.';}
+    }));
+  }
+  function finish(){
+    const bonus=keyMarked?300:0; score+=bonus; $('score').textContent=score;
+    const best=Math.max(score,RR.store.get('best:case',0)); RR.store.set('best:case',best);
+    const stars=score>=1100?3:score>=800?2:1;
+    const ov=document.createElement('div'); ov.className='overlay';
+    ov.innerHTML=`<div class="inner"><div class="eyebrow">Case solved</div><div class="score">${score}</div><p style="font-size:1.6rem;color:var(--marigold)" aria-label="${stars} of 3 stars">${'★'.repeat(stars)}<span style="opacity:.25">${'★'.repeat(3-stars)}</span></p><p class="mute">${keyMarked?'You marked the stamp date before accusing: +300 for good file-reading.':'Tip: mark the decisive line in an exhibit before you accuse for a +300 bonus.'} Best: ${best}.</p><div class="btns" style="justify-content:center"><button class="btn solid" type="button" id="again">Play again</button><a class="btn teal" href="../arcade.html">Back to Arcade</a></div></div>`;
+    game.appendChild(ov); RR.confetti(game);
+    ov.querySelector('#again').onclick=()=>location.reload();
+  }
+  renderStage();
+})();
+</script>
+
+</body>
+</html>
